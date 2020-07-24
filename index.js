@@ -48,7 +48,7 @@ app.get('/api/persons/:id', (req, res, next) => {
             res.json(person)
          } else {
             res.status(404).end()
-         }  
+         }
       })
       .catch(error => next(error))
 })
@@ -91,16 +91,16 @@ app.get('/info', (req, res) => {
 })
 
 const unknownEndpoint = (req, res) => {
-   response.status(404).send({ error: 'unknown endpoint' })
- }
+   res.status(404).send({ error: 'unknown endpoint' })
+}
 
- app.use(unknownEndpoint)
+app.use(unknownEndpoint)
 
 const errorHandler = (error, req, res, next) => {
    console.error(error.message)
 
    if (error.name === 'CastError') {
-      return res.status(400).send({ error: 'malformatted id'})
+      return res.status(400).send({ error: 'malformatted id' })
    } else if (error.name === 'ValidationError') {
       return res.status(400).json({ error: error.message })
    }
